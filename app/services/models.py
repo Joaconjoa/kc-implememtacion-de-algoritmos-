@@ -16,11 +16,10 @@ from app.core.config import (
     KERAS_MODEL,
     TOKENIZER_MODEL,
     SEQUENCE_LENGTH,
-    SENTIMENT_THRESHOLD,
 )
 
 
-class SentimentAnalysisModel:
+class Troll_Detection:
     def __init__(
         self, model_dir,
     ):
@@ -38,7 +37,7 @@ class SentimentAnalysisModel:
         self.tokenizer = pickle.load(tf.io.gfile.GFile(tokenizer_path, mode="rb"))
 
     def _decode_label(self, score) -> str:
-        return Troll.NEGATIVE_TROLL.value if score < 0.5 else Troll.POSITIVE_TROLL.value
+        return Troll.NEGATIVE.value if score < 0.5 else Troll.POSITIVE.value
 
     def _pre_process(self, payload: TextPayload) -> str:
         logger.debug("Pre-processing payload.")
@@ -55,12 +54,12 @@ class SentimentAnalysisModel:
 
     def _post_process(
         self, text: str, prediction: float, start_time: float
-    ) -> SentimentPredictionResult:
+    ) -> TrollPredictionResult:
         logger.debug("Post-processing prediction.")
         # Decode sentiment
         label = self._decode_sentiment(prediction)
 
-        return SentimentPredictionResult(
+        return TrollPredictionResult(
             label=label, score=prediction, elapsed_time=(time.time() - start_time),
         )
 
