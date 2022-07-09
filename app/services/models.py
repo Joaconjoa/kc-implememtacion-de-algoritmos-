@@ -38,7 +38,7 @@ class TrollDetectionModel:
         tokenizer_path = os.path.join(self.model_dir, TOKENIZER_MODEL)
         self.tokenizer = pickle.load(tf.io.gfile.GFile(tokenizer_path, mode="rb"))
 
-    def _decode_label(self, score) -> str:
+    def _decode_label(self, score: float) -> str:
         return Troll.NEGATIVE.value if score < 0.5 else Troll.POSITIVE.value
     
     #def _decode_label(self, score: float) -> str:
