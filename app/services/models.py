@@ -16,6 +16,8 @@ from app.core.config import (
     KERAS_MODEL,
     TOKENIZER_MODEL,
     SEQUENCE_LENGTH,
+    POSITIVE,
+    NEGATIVE
 )
 
 
@@ -38,6 +40,9 @@ class Troll_Detection:
 
     def _decode_label(self, score) -> str:
         return Troll.NEGATIVE.value if score < 0.5 else Troll.POSITIVE.value
+    
+    #def _decode_label(self, score: float) -> str:
+     #label = NEGATIVE if score <= 0.5: label = POSITIVE return label
 
     def _pre_process(self, payload: TextPayload) -> str:
         logger.debug("Pre-processing payload.")
@@ -57,7 +62,7 @@ class Troll_Detection:
     ) -> TrollPredictionResult:
         logger.debug("Post-processing prediction.")
         # Decode sentiment
-        label = self._decode_sentiment(prediction)
+        label = self._decode_label(prediction)
 
         return TrollPredictionResult(
             label=label, score=prediction, elapsed_time=(time.time() - start_time),
