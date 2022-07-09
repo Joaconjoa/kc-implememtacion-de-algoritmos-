@@ -21,7 +21,7 @@ from app.core.config import (
 )
 
 
-class Troll_Detection:
+class TrollDetectionModel:
     def __init__(
         self, model_dir,
     ):
@@ -61,7 +61,7 @@ class Troll_Detection:
         self, text: str, prediction: float, start_time: float
     ) -> TrollPredictionResult:
         logger.debug("Post-processing prediction.")
-        # Decode sentiment
+        # Decode label
         label = self._decode_label(prediction)
 
         return TrollPredictionResult(
