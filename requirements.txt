@@ -1,8 +1,9 @@
+apache-beam[gcp]==2.24.0
 requests==2.25.0
 uvicorn==0.12.2
 fastapi==0.61.2
 numpy==1.19.5
-tensorflow==2.3.0
+tensorflow==2.1.0
 h5py==2.10.0
 scikit-learn==0.23.2
 scipy==1.4.1
